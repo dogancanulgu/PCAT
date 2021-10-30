@@ -1,31 +1,31 @@
 const express = require('express');
-const path = require('path');
+// const ejs = require('ejs');
+// const path = require('path');
 
 const app = express();
 
-// const myLogger = (req, res, next) => {
-//   console.log('Middleware Log 1');
-//   next();
-// };
-
-// const myLogger2 = (req, res, next) => {
-//   console.log('Middleware Log 2');
-//   next();
-// };
-// app.use(myLogger);
-// app.use(myLogger2);
+// TEMPLATE ENGINE
+app.set('view engine', 'ejs');
 
 // MIDDLEWARES
 app.use(express.static('public'));
+app.use(express.urlencoded({ extended: true }));
+app.use(express.json());
 
+// ROUTES
 app.get('/', (req, res) => {
-  // const photo = {
-  //   id: 1,
-  //   name: 'Photo Name',
-  //   description: 'Photo Description',
-  // };
-  // res.send(photo);
-  res.sendFile(path.resolve(__dirname, 'temp/index.html'));
+  res.render('index');
+});
+app.get('/about', (req, res) => {
+  res.render('about');
+});
+app.get('/add', (req, res) => {
+  res.render('add');
+});
+
+app.post('/photos', (req, res) => {
+  console.log(req.body);
+  res.redirect('/');
 });
 
 const port = 3000;
