@@ -11,10 +11,13 @@ const pageController = require('./controllers/pageController');
 
 const app = express();
 
-mongoose.connect('mongodb://localhost/pcat-test-db', {
-  useNewUrlParser: true,
-  useUnifiedTopology: true,
-});
+mongoose.connect(
+  'mongodb+srv://dogancan:vUcXLMEdrqMLYi73@cluster0.mdn4h.mongodb.net/pcat-db?retryWrites=true&w=majority',
+  {
+    useNewUrlParser: true,
+    useUnifiedTopology: true,
+  }
+);
 
 // TEMPLATE ENGINE
 app.set('view engine', 'ejs');
@@ -41,7 +44,7 @@ app.get('/about', pageController.getAboutPage);
 app.get('/add', pageController.getAddPage);
 app.get('/photos/edit/:id', pageController.getEditPage);
 
-const port = 3000;
+const port = process.env.PORT || 5000;
 app.listen(port, () => {
   console.log(`Server has been bounded at ${port}`);
 });
